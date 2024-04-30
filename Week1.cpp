@@ -13,7 +13,6 @@ using namespace cv;
 using namespace std;
 
 
-
 void opdracht2a() {
 
     Mat img = imread("test.jpeg");
@@ -75,8 +74,8 @@ void opdracht4a() {
     imshow("Image Erode", imgWrapErode);*/
     waitKey();
 }
-
-int main()
-{
-    opdracht4a();
-}
+//
+//int main()
+//{
+//    opdracht4a();
+//}
