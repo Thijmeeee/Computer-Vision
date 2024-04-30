@@ -11,7 +11,9 @@
 
 using namespace cv;
 
-void opdracht2_2() {
+int threshhold1 = 0;
+
+void opdracht2_3() {
     Mat img = imread("blacklines.png");
     Mat imgErode, kernel;
 
@@ -23,6 +25,22 @@ void opdracht2_2() {
     imshow("Image Erode", imgErode);
 
     waitKey();
+}
+
+void opdracht2_2() {
+    Mat img = imread("torenvanpisa.png");
+    Mat imgCanny;
+
+    namedWindow("Trackbars", (640, 200));
+    createTrackbar("Canny", "Trackbars", &threshhold1, 255);
+
+    while (true) {
+        Canny(img, imgCanny, threshhold1, 255);
+        imshow("Image Canny", imgCanny);
+        waitKey(5);
+    }
+
+    
 }
 
 
