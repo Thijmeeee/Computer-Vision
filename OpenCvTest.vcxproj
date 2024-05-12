@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Week1.cpp" />
     <ClCompile Include="Week2.cpp" />
+    <ClCompile Include="Eindopdracht.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

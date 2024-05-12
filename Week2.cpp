@@ -81,9 +81,9 @@ void opdracht2_1() {
 }
 
 
-int main() {
-
-    opdracht2_2();
-
-	return 1;	
-}
+//int main() {
+//
+//    opdracht2_2();
+//
+//	return 1;	
+//}
