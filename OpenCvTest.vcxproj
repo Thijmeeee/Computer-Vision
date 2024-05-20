@@ -139,6 +139,9 @@
     <ClCompile Include="Week2.cpp" />
     <ClCompile Include="Eindopdracht.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\haarcascade_russian_plate_number.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
