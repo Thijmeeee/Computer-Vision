@@ -35,7 +35,7 @@ int FindNextDirectoryIndex(string path)
 		i++;
 		std::cout << dir_entry.path() << '\n';
 	}
-	return i + 1; // + 1 cuz it needs to be the next directory.
+	return i + 1; // return the next available index
 }
 
 void main()
@@ -64,9 +64,14 @@ void main()
 
 			Mat cannyImg, erodeImg, grayImg, rangeImg;
 			cvtColor(imgCrop, grayImg, COLOR_BGR2GRAY);
+
+			//filter letters
 			inRange(grayImg, Scalar(0.0, 0.0, 0.0), Scalar(160.0, 160.0, 160.0), rangeImg);
+
+			//find outlines
 			Canny(rangeImg, cannyImg, 20, 90);
 
+			//find contours of all the characters
 			findContours(cannyImg, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 
 			vector<Rect> boundingBoxes;
@@ -75,22 +80,30 @@ void main()
 				double area = contourArea(contour);
 				Rect rect = boundingRect(contour);
 				double aspectRatio = static_cast<double>(rect.width) / rect.height;
+
+				//only add characters with a large area and with an aspect ratio below 1
 				if (area > 200.0 && aspectRatio < 1.0)
 				{
 					boundingBoxes.push_back(rect);
 				}
 			}
+
+			//sort characters from left to right
 			sort(boundingBoxes.begin(), boundingBoxes.end(), sortByX);
 
-
 			cout << "size: " << static_cast<int>(boundingBoxes.size()) << endl;
+
+			//check if the amount of found characters is the amount we expect
 			if (static_cast<int>(boundingBoxes.size()) == plateSize)
 			{
 				int dirCount = FindNextDirectoryIndex("Resources/Plates/");
 				string tempPath = string("Resources/Plates/kenteken") + to_string(dirCount);
 				const char* newPath = tempPath.c_str();
+
+				//make directory for new license plate
 				_mkdir(newPath);
 
+				//write all characters to the directory
 				for (const Rect& rect : boundingBoxes)
 				{
 					string path = "Resources/Plates/kenteken"
@@ -110,7 +123,6 @@ void main()
 			}
 			rectangle(img, plates[i].tl(), plates[i].br(), Scalar(255, 0, 255), 3);
 		}
-
 		imshow("Image", img);
 		waitKey(100);
 	}
