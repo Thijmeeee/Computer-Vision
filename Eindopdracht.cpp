@@ -14,7 +14,8 @@
 using namespace cv;
 using namespace std;
 
-const int plateSize = 6;
+
+const int plateSize = 8;
 bool foundPlate = false;
 
 bool sortByX(const Rect& a, const Rect& b)
