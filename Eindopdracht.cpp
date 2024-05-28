@@ -23,19 +23,19 @@ bool sortByX(const Rect& a, const Rect& b)
 	return a.x < b.x;
 }
 
-int findDirCount(string path)
+int FindNextDirectoryIndex(string path)
 {
 	const filesystem::path root{path};
 
 	std::cout << "directory_iterator:\n";
-	// directory_iterator can be iterated using a range-for loop
+
 	int i = 0;
 	for (auto const& dir_entry : filesystem::directory_iterator{root})
 	{
 		i++;
 		std::cout << dir_entry.path() << '\n';
 	}
-	return i;
+	return i + 1; // + 1 cuz it needs to be the next directory.
 }
 
 void main()
@@ -67,10 +67,6 @@ void main()
 			inRange(grayImg, Scalar(0.0, 0.0, 0.0), Scalar(160.0, 160.0, 160.0), rangeImg);
 			Canny(rangeImg, cannyImg, 20, 90);
 
-			// imshow("Image", rangeImg);
-			// imshow("Image", cannyImg);
-			// waitKey();
-
 			findContours(cannyImg, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 
 			vector<Rect> boundingBoxes;
@@ -90,7 +86,7 @@ void main()
 			cout << "size: " << static_cast<int>(boundingBoxes.size()) << endl;
 			if (static_cast<int>(boundingBoxes.size()) == plateSize)
 			{
-				int dirCount = findDirCount("Resources/Plates/");
+				int dirCount = FindNextDirectoryIndex("Resources/Plates/");
 				string tempPath = string("Resources/Plates/kenteken") + to_string(dirCount);
 				const char* newPath = tempPath.c_str();
 				_mkdir(newPath);
